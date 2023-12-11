@@ -57,21 +57,21 @@ export default function App() {
     },
   };
 
-  // useEffect(() => {
-  //   const clearSecureStore = async () => {
-  //     try {
-  //       await SecureStore.deleteItemAsync("key1");
-  //       await SecureStore.deleteItemAsync("key2");
-  //       // Add more keys as needed
+  useEffect(() => {
+    const clearSecureStore = async () => {
+      try {
+        await SecureStore.deleteItemAsync("key1");
+        await SecureStore.deleteItemAsync("key2");
+        // Add more keys as needed
 
-  //       console.log("SecureStore cleared successfully.");
-  //     } catch (error) {
-  //       console.log("Failed to clear SecureStore:", error);
-  //     }
-  //   };
+        console.log("SecureStore cleared successfully.");
+      } catch (error) {
+        console.log("Failed to clear SecureStore:", error);
+      }
+    };
 
-  //   clearSecureStore();
-  // }, []);
+    clearSecureStore();
+  }, []);
 
   const handlePwdReset = (state) => {
     setResetPwd(state);
@@ -96,6 +96,10 @@ export default function App() {
       setSession(session);
     });
   }, []);
+
+  useEffect(() => {
+    setIndex(1);
+  }, [session]);
 
   function navigate(name, params) {
     if (navigationRef.isReady()) navigationRef.navigate(name, params);

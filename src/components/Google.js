@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { supabase } from "../lib/supabase";
 import { StyleSheet, Image, Alert } from "react-native";
@@ -21,9 +20,7 @@ export default function Google() {
         try {
           await GoogleSignin.hasPlayServices();
           const userInfo = await GoogleSignin.signIn();
-          Alert.alert(userInfo.idToken);
           if (userInfo?.idToken) {
-            console.log(userInfo.idToken);
             const { data, error } = await supabase.auth.signInWithIdToken({
               provider: "google",
               token: userInfo.idToken,
@@ -41,7 +38,6 @@ export default function Google() {
           }
         } catch (error) {
           console.log(error);
-          Alert.alert(error.message);
         }
       }}
       color="#fff"
@@ -55,22 +51,6 @@ export default function Google() {
     </Button>
   );
 }
-
-// export default function Google() {
-//   return (
-//     <Button
-//       onPress={() => {}}
-//       color="#fff"
-//       type="outline"
-//       buttonStyle={styles.socialAuthButton}
-//     >
-//       <Image
-//         source={require("../../assets/images/social-auth/google.png")}
-//         className="h-10 w-10"
-//       />
-//     </Button>
-//   );
-// }
 
 const styles = StyleSheet.create({
   socialAuthButton: {
