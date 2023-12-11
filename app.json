@@ -1,0 +1,102 @@
+{
+  "expo": {
+    "name": "BasketBuddy",
+    "slug": "basket-buddy-app",
+    "version": "1.0.13",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "scheme": "basketbuddy",
+    "developmentClient": {
+      "silentLaunch": true
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera."
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
+        }
+      ],
+      ["@react-native-google-signin/google-signin"]
+    ],
+    "splash": {
+      "image": "./assets/splashscreen.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "bitcode": false,
+      "supportsTablet": true,
+      "bundleIdentifier": "app.basketbuddy",
+      "googleServicesFile": "./GoogleService-Info.plist",
+      "config": {
+        "googleMapsApiKey": "AIzaSyAG-zGxWPzMRKXTrPuCrOvkw7IzKNWRsgg",
+        "usesNonExemptEncryption": false
+      },
+
+      "infoPlist": {
+        "CFBundleURLTypes": [
+          {
+            "CFBundleURLSchemes": [
+              "com.googleusercontent.apps.573393173410-k0j0sr4cfipq6mr1dpe489j4c6j9tmo5"
+            ]
+          }
+        ]
+      },
+
+      "entitlements": {
+        "com.apple.developer.in-app-payments": [
+          "merchant.app.basketbuddy.basketbuddy"
+        ]
+      }
+    },
+
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      },
+
+      "package": "app.basketbuddy",
+      "versionCode": 7,
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyAG-zGxWPzMRKXTrPuCrOvkw7IzKNWRsgg"
+        }
+      },
+      "permissions": [
+        "com.android.vending.BILLING",
+        "com.android.permission.INTERNET"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "packagerOpts": {
+      "sourceExts": ["js", "jsx", "scss", "sass"],
+      "transformer": "node_modules/react-native-sass-transformer/index.js"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "767cd62b-85da-4eca-83db-a153ec15d3db"
+      }
+    }
+  }
+}

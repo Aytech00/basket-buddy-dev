@@ -1,0 +1,78 @@
+{
+  "build": {
+    "preview": {
+      "extends": "base",
+
+      "env": {
+        "ENVIRONMENT": "preview"
+      },
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "base": {
+      "node": "18.17.0",
+      "yarn": "1.22.5",
+      "env": {
+        "EXAMPLE_ENV": "example value"
+      },
+      "android": {
+        "image": "default",
+        "env": {
+          "PLATFORM": "android"
+        }
+      },
+      "ios": {
+        "image": "latest",
+        "env": {
+          "PLATFORM": "ios"
+        }
+      }
+    },
+    "development": {
+      "extends": "base",
+      "developmentClient": true,
+      "env": {
+        "ENVIRONMENT": "development"
+      },
+      "android": {
+        "distribution": "internal",
+        "withoutCredentials": true
+      },
+      "ios": {
+        "simulator": true
+      }
+    },
+    "staging": {
+      "extends": "base",
+      "env": {
+        "ENVIRONMENT": "staging"
+      },
+      "android": {
+        "buildType": "apk",
+        "distribution": "internal"
+      }
+    },
+    "production": {
+      "extends": "base",
+      "env": {
+        "ENVIRONMENT": "production"
+      },
+      "android": {
+        "buildType": "app-bundle"
+      }
+    },
+    "generateApk": {
+      "extends": "base",
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "customGradle": {
+      "extends": "base",
+      "android": {
+        "gradleCommand": ":app:assembleRelease"
+      }
+    }
+  }
+}

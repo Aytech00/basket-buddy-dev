@@ -1,0 +1,20 @@
+
+$blackText : #333333;
+$grayText : #949494;
+$lightGrayText : #D4D4D4;
+
+$green : #6ECB33; 
+$red : #f14354;
+$darkYellow : #D8B641;
+$darkRed : #9A2020;
+
+$blackBg : #313131;
+$grayBg : #FBFBFB;
+$whiteBg : #ffffff;
+
+.body{
+    color: $blackText;
+    background: $whiteBg;
+    padding: 0 .25rem;
+    font-size: 23px;
+}
