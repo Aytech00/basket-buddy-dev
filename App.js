@@ -130,8 +130,8 @@ export default function App() {
         return;
     }
 
-    navigate(newPageName, {});
     setIndex(i);
+    navigate(newPageName, {});
   };
 
   const onLayoutSafeArea = useCallback(async () => {
