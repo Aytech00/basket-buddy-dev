@@ -6,7 +6,7 @@ import {
   createNavigationContainerRef,
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Tab } from "@rneui/base";
+import { Tab } from "@rneui/themed";
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
 import UserContext from "./src/lib/userContext";
@@ -89,6 +89,7 @@ export default function App() {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       setUser(session.user);
+      setIndex(1);
     });
 
     supabase.auth.onAuthStateChange((_event, session) => {
@@ -137,6 +138,8 @@ export default function App() {
   const onLayoutSafeArea = useCallback(async () => {
     if (fontsLoaded) {
       await SplashScreen.hideAsync();
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      setIndex(1);
       setCurrentPage(1); // homepage is default
     }
   }, [fontsLoaded]);
@@ -266,14 +269,13 @@ export default function App() {
                                     }}
                                     style={{ elevation: 1 }}
                                     indicatorStyle={{
-                                      order: -1,
                                       backgroundColor: "#333",
                                       height: 4,
                                       borderTopLeftRadius: 4,
-                                      width: 130,
+                                      width: "33%",
                                       borderTopRightRadius: 4,
-                                      position: "absolute",
                                       bottom: "100%",
+                                      display: "none",
                                     }}
                                     variant="default"
                                   >
@@ -289,9 +291,18 @@ export default function App() {
                                         color: "#333",
                                         size: 32,
                                       }}
-                                      containerStyle={{
-                                        backgroundColor: "white",
-                                      }}
+                                      containerStyle={(active) =>
+                                        !active
+                                          ? {
+                                              backgroundColor: "white",
+                                            }
+                                          : {
+                                              borderTopWidth: 4,
+                                              borderTopColor: "#333",
+                                              borderTopLeftRadius: 4,
+                                              borderTopRightRadius: 4,
+                                            }
+                                      }
                                     />
 
                                     <Tab.Item
@@ -306,9 +317,18 @@ export default function App() {
                                         color: "#333",
                                         size: 28,
                                       }}
-                                      containerStyle={{
-                                        backgroundColor: "white",
-                                      }}
+                                      containerStyle={(active) =>
+                                        !active
+                                          ? {
+                                              backgroundColor: "white",
+                                            }
+                                          : {
+                                              borderTopWidth: 4,
+                                              borderTopColor: "#333",
+                                              borderTopLeftRadius: 4,
+                                              borderTopRightRadius: 4,
+                                            }
+                                      }
                                     />
 
                                     <Tab.Item
@@ -323,9 +343,18 @@ export default function App() {
                                         color: "#333",
                                         size: 32,
                                       }}
-                                      containerStyle={{
-                                        backgroundColor: "white",
-                                      }}
+                                      containerStyle={(active) =>
+                                        !active
+                                          ? {
+                                              backgroundColor: "white",
+                                            }
+                                          : {
+                                              borderTopWidth: 4,
+                                              borderTopColor: "#333",
+                                              borderTopLeftRadius: 4,
+                                              borderTopRightRadius: 4,
+                                            }
+                                      }
                                     />
                                   </Tab>
                                   <View className="bg-white w-full h-10 absolute bottom-[-40]"></View>
