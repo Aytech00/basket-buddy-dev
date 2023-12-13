@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext, useRef } from "react";
 import { View, TouchableOpacity, Animated } from "react-native";
-import { Button } from "@rneui/base";
+import { Button } from "@rneui/themed";
 import UserContext from "../lib/userContext";
 import { supabase } from "../lib/supabase";
 import useScreenListener from "../components/useScreenListener";
@@ -13,7 +13,7 @@ import SavedCartSubtotal from "../components/SavedCartSubtotal";
 import Chevron from "../components/ui/Chevron";
 import MainHeaderContext from "../lib/MainHeaderContext";
 import CartPageContext from "../lib/cartPageContext";
-import { Icon } from "@rneui/base";
+import { Icon } from "@rneui/themed";
 import CartGrid from "../components/ui/cartGrid";
 import { AvatarLayout } from "../components/SkeletonLoader";
 

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Button } from "@rneui/base";
+import { Button } from "@rneui/themed";
 import Text from "../components/ui/Text";
 import { CartContext } from "../lib/cartContext";
 import { supabase } from "../lib/supabase";
@@ -30,7 +30,6 @@ export default function AddButton({ cartProducts }) {
     if (product) {
       console.log("FOUND PRODUCT");
       const { minPrice, maxPrice } = getCartPriceRange(product);
-      console.log(minPrice, maxPrice);
       return { min: minPrice, max: maxPrice };
     }
   };

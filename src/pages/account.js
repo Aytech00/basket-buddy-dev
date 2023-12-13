@@ -10,7 +10,7 @@ import {
   Text as NativeText,
   TouchableOpacity,
 } from "react-native";
-import { Button } from "@rneui/base";
+import { Button } from "@rneui/themed";
 import Text from "../components/ui/Text";
 import Avatar from "../components/Avatar";
 import * as Linking from "expo-linking";

@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { View, Text, Pressable, ImageBackground } from "react-native";
-import { SearchBar, Button } from "@rneui/base";
+import { SearchBar, Button } from "@rneui/themed";
 import { Icon } from "@rneui/themed";
 import SearchResults from "../searchResults";
 import { SavedCartContext } from "../../lib/SavedCartContext";

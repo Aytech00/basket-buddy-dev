@@ -41,7 +41,7 @@ export default function HomePage({ navigation, route }) {
       .range(0, 5);
 
     console.log("DATA");
-    console.log(data);
+    // console.log(data);
     if (error) {
       console.error("Error fetching user data:", error.message);
       return [];

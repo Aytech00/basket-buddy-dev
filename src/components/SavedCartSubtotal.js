@@ -130,7 +130,7 @@ export default function SavedCartSubtotal({ cartId, loading, setLoading }) {
 
     const fetchProducts = async (arrayOfIds) => {
       console.log("arrayOfIds");
-      console.log(arrayOfIds);
+      // console.log(arrayOfIds);
       try {
         const fetchRequests = arrayOfIds.map(async (productId) => {
           const { data: product, error } = await supabase
@@ -141,7 +141,7 @@ export default function SavedCartSubtotal({ cartId, loading, setLoading }) {
             .limit(1);
 
           console.log("Product");
-          console.log(product);
+          // console.log(product);
 
           if (error) {
             console.error("Error fetching product:", error);

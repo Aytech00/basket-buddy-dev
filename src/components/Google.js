@@ -1,7 +1,7 @@
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { supabase } from "../lib/supabase";
 import { StyleSheet, Image, Alert } from "react-native";
-import { Button } from "@rneui/base";
+import { Button } from "@rneui/themed";
 
 export default function Google() {
   GoogleSignin.configure({

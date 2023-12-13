@@ -1,6 +1,6 @@
 import { View, Text, Image, Pressable } from "react-native";
 import React, { useEffect, useState, useContext } from "react";
-import { Icon } from "@rneui/base";
+import { Icon } from "@rneui/themed";
 import { CartContext } from "../lib/cartContext";
 
 const ViewPrices = React.forwardRef((props, ref) => {

@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
-import { Button, Input, CheckBox, Icon } from "@rneui/base";
+import { Button, Input, CheckBox, Icon } from "@rneui/themed";
 import { supabase } from "../lib/supabase";
 import {
   View,
@@ -88,7 +88,7 @@ export default function NewSavedCart({
         return null;
       }
       console.log("CART ");
-      console.log(cart);
+      // console.log(cart);
       return cart;
     };
 
@@ -130,7 +130,7 @@ export default function NewSavedCart({
       let fetchedProductsArray = [];
       arrayOfIds.map(async (productId) => {
         console.log("productId");
-        console.log(productId);
+        // console.log(productId);
         const { data: product, error } = await supabase
           .from("Product")
           .select("*")

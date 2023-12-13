@@ -6,7 +6,7 @@ import {
   Image,
   ActivityIndicator,
 } from "react-native";
-import { Button, Input } from "@rneui/base";
+import { Button, Input } from "@rneui/themed";
 import { supabase } from "../lib/supabase";
 import Text from "../components/ui/Text";
 import * as ImagePicker from "expo-image-picker";
@@ -24,7 +24,7 @@ const ChangeNameComponent = () => {
 
   useEffect(() => {
     if (image) {
-      console.log(image);
+      // console.log(image);
     }
   });
 

@@ -4,7 +4,7 @@ import { View, TouchableOpacity } from "react-native";
 import Text from "./Text";
 import AddButton from "../AddButton";
 import Product from "../Product";
-import { Icon } from "@rneui/base";
+import { Icon } from "@rneui/themed";
 import { supabase } from "../../lib/supabase";
 import { useNavigation } from "@react-navigation/native";
 
@@ -13,7 +13,7 @@ export default function cartGrid({ cart, refreshData }) {
 
   useEffect(() => {
     console.log("cart");
-    console.log(cart);
+    // console.log(cart);
   }, []);
 
   const handleDeleteRow = async (cartID) => {

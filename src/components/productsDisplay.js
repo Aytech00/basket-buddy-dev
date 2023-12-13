@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { View, ScrollView, Image, Pressable } from "react-native";
-import { Icon } from "@rneui/base";
+import { Icon } from "@rneui/themed";
 import { CartContext } from "../lib/cartContext";
 import { CheckBox } from "@rneui/themed";
 import Text from "../components/ui/Text";
@@ -60,7 +60,7 @@ export default function ProductDisplay({
     });
     if (render <= 1) {
       console.log("RENDER");
-      console.log(newSubtotal);
+      // console.log(newSubtotal);
       handleLowestSubtotal(newSubtotal);
       setRender((prev) => prev + 1);
     }

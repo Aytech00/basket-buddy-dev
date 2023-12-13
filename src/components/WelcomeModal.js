@@ -1,5 +1,12 @@
-import { View, Modal, TouchableOpacity, StyleSheet, Image } from "react-native";
-import { Button } from "@rneui/base";
+import {
+  View,
+  Modal,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  Alert,
+} from "react-native";
+import { Button } from "@rneui/themed";
 import { useEffect, useState, useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Text from "../components/ui/Text";
@@ -87,8 +94,10 @@ const WelcomeModal = ({
   });
 
   const purchaseBasketBuddyPremium = async () => {
+    console.log(offerings.current);
     try {
       if (offerings.current && offerings.current.monthly) {
+        Alert.alert(offerings?.current?.monthly?.product?.priceString);
         const product = offerings.current.monthly;
 
         // Get the price and introductory period from the PurchasesProduct
@@ -97,15 +106,15 @@ const WelcomeModal = ({
           offerings.current.availablePackages.length !== 0
         ) {
           try {
-            console.log("running", product);
+            // console.log("running", product);
             const { customerInfo, productIdentifier } =
               await Purchases.purchasePackage(
                 offerings.current.availablePackages[0]
               );
             console.log("customer Info");
-            console.log(customerInfo);
+            // console.log(customerInfo);
             console.log("productIdentifier");
-            console.log(productIdentifier);
+            // console.log(productIdentifier);
             if (
               typeof customerInfo.entitlements.active
                 .my_entitlement_identifier !== "undefined"
@@ -115,14 +124,16 @@ const WelcomeModal = ({
               closeModal();
             }
           } catch (e) {
+            Alert.alert(e);
             if (!e.userCancelled) {
-              console.log(e);
+              console.log(e?.message || e);
             }
           }
         }
       }
     } catch (e) {
       console.log("offeringsError", e);
+      Alert(e);
     }
   };
 

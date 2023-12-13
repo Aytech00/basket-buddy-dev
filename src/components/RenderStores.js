@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { ScrollView, View, Image, TouchableOpacity } from "react-native";
 import Text from "../components/ui/Text";
-import { Button, Icon } from "@rneui/base";
+import { Button, Icon } from "@rneui/themed";
 import * as Linking from "expo-linking";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import MainHeaderContext from "../lib/MainHeaderContext";
@@ -203,12 +203,12 @@ const RenderStores = ({
     cart.map((product) => {
       productsMIN += product.price.min * product.quantity;
     });
-    console.log(productsMIN);
+    // console.log(productsMIN);
     setLowestPriceItems(productsMIN);
   }, []);
 
   useEffect(() => {
-    console.log(lowestPricedItems);
+    // console.log(lowestPricedItems);
   }, [lowestPricedItems]);
 
   return (

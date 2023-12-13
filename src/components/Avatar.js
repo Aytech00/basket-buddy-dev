@@ -14,7 +14,7 @@ export default function ImagePickerExample({ url, size = 150, onUpload }) {
       quality: 1,
     });
 
-    console.log(result);
+    // console.log(result);
 
     if (!result.canceled) {
       setImage(result.assets[0].uri);

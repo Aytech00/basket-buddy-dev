@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Alert, StyleSheet, View, Image, Text } from "react-native";
 import { supabase } from "../lib/supabase";
-import { Button, Input } from "@rneui/base";
+import { Button, Input } from "@rneui/themed";
 import { makeRedirectUri } from "expo-auth-session";
 import { supabaseUrl } from "../lib/supabase";
 import * as Linking from "expo-linking";
@@ -70,7 +70,7 @@ export default function Auth({ resetPwd }) {
         const session = async () => {
           const { data, error } = supabase.auth.getSession();
           if (error) console.log(error);
-          if (data) console.log(data);
+          // if (data) console.log(data);
         };
 
         session();

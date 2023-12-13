@@ -1,7 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
-import { supabase } from "./supabase";
 import Purchases, { LOG_LEVEL } from "react-native-purchases";
-import { Platform } from "react-native";
+import { Alert, Platform } from "react-native";
 export const PremiumContext = createContext();
 
 export const PremiumProvider = ({ children }) => {
@@ -20,19 +19,14 @@ export const PremiumProvider = ({ children }) => {
     };
 
     const init = async () => {
-      console.log("RUNNING");
       Purchases.setLogLevel(LOG_LEVEL.VERBOSE);
 
-      if (Platform.OS === "ios") {
-        console.log("IOS");
-        chases.configure({
+      if (Platform.OS === "ios")
+        Purchases.configure({
           apiKey: "appl_BbfbiNOWyjJeXyMiYMlLlxONvvY",
         });
-        getPackages();
-      } else if (Platform.OS === "android") {
-        console.log("IN THE DROID");
+      else if (Platform.OS === "android")
         Purchases.configure({ apiKey: "goog_ybqOmDciIMheZkNmOtjeQllGkkE" });
-      }
 
       await loadOfferings();
     };

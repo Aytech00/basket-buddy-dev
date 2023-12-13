@@ -13,7 +13,7 @@ const AuthProvider = ({ children }) => {
   const [session, setSession] = useState(null);
   useEffect(() => {
     const { data } = supabase.auth.onAuthStateChange((event, session) => {
-      console.log(event);
+      // console.log(event);
       if (event === "SIGNED_IN") {
         setUser(session.user);
         setSession(session);
@@ -27,7 +27,7 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     if (user !== null || user !== undefined) {
-      console.log(user.email);
+      // console.log(user.email);
       console.log("user state is being set");
     }
   });

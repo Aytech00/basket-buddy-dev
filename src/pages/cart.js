@@ -8,7 +8,7 @@ import {
   Platform,
   Dimensions,
 } from "react-native";
-import { Button, Icon } from "@rneui/base";
+import { Button, Icon } from "@rneui/themed";
 import { CartContext } from "../lib/cartContext";
 import { supabase } from "../lib/supabase";
 import UserContext from "../lib/userContext";

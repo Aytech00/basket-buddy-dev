@@ -1,7 +1,7 @@
 import { View, StyleSheet, Image } from "react-native";
 import React, { useEffect, useState, useContext, useCallback } from "react";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
-import { Button, Icon } from "@rneui/base";
+import { Button, Icon } from "@rneui/themed";
 import { CartContext } from "../lib/cartContext";
 import { PremiumContext } from "../lib/premiumContext";
 import ProductDisplay from "../components/productsDisplay";
@@ -45,7 +45,7 @@ const PriceMatching = React.forwardRef((props, ref) => {
       // Calculate the total price of the lowest-priced products
       for (const product of lowestProducts) {
         const price = parseFloat(product.individual_price.replace("$", ""));
-        console.log("Subtotal", lowestSubtotal);
+        // console.log("Subtotal", lowestSubtotal);
         lowestSubtotal += price;
       }
 
@@ -61,7 +61,7 @@ const PriceMatching = React.forwardRef((props, ref) => {
   }, [highestSubtotal, store, premium, lowestProducts]);
 
   useEffect(() => {
-    console.log("props.selectedGrocery", props.selectedGrocery.subtotal);
+    // console.log("props.selectedGrocery", props.selectedGrocery.subtotal);
     // Calculate your subtotal here and assign it to newSubtotal
     setSubtotal(props.selectedGrocery.subtotal.toFixed(2));
   }, [props.selectedGrocery]); // Recalculate subtotal when selectedGrocery changes
@@ -164,7 +164,7 @@ const PriceMatching = React.forwardRef((props, ref) => {
 
   const handleLowestSubtotal = useCallback((subtotal) => {
     setLowestSubtotal((prevTotalPrice) => {
-      console.log("subtotal in handler", subtotal);
+      // console.log("subtotal in handler", subtotal);
       // Explicitly convert to number and return
       return Number(subtotal);
     });

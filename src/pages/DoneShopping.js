@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState, useContext } from "react";
 import { StyleSheet, View, Image, Animated, ScrollView } from "react-native";
-import { Button } from "@rneui/base";
+import { Button } from "@rneui/themed";
 import DoneShoppingDisplay from "./DoneShoppingDisplay";
 import Text from "../components/ui/Text";
 import { CartContext } from "../lib/cartContext";

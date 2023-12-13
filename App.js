@@ -46,6 +46,8 @@ export default function App() {
   const [search, setSearch] = useState("");
   const [isSearchFocused, setSearchFocus] = useState(false);
   const [resetPwd, setResetPwd] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [isUserFetched, setIsUserFetched] = useState(false);
   const searchRef = useRef();
 
   const linking = {
@@ -86,16 +88,22 @@ export default function App() {
   const [session, setSession] = useState(null);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setUser(session.user);
-      setIndex(1);
-    });
+    (async () => {
+      try {
+        await supabase.auth.getSession().then(({ data: { session } }) => {
+          setSession(session);
+          setUser(session.user);
+          setIndex(1);
+        });
 
-    supabase.auth.onAuthStateChange((_event, session) => {
-      console.log(_event);
-      setSession(session);
-    });
+        supabase.auth.onAuthStateChange((_event, session) => {
+          setSession(session);
+        });
+      } finally {
+        setIndex(1);
+        setIsUserFetched(true);
+      }
+    })();
   }, []);
 
   useEffect(() => {
@@ -108,10 +116,6 @@ export default function App() {
 
   const setCurrentPage = (i) => {
     let newPageName;
-
-    // if (i === index) {
-    //   return;
-    // }
 
     switch (i) {
       case 0:
@@ -136,13 +140,16 @@ export default function App() {
   };
 
   const onLayoutSafeArea = useCallback(async () => {
-    if (fontsLoaded) {
-      await SplashScreen.hideAsync();
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+    if (fontsLoaded && isUserFetched) {
       setIndex(1);
       setCurrentPage(1); // homepage is default
+      setIsLoaded(true);
+      await new Promise((resolve) => {
+        setTimeout(resolve, 2000);
+      });
+      await SplashScreen.hideAsync();
     }
-  }, [fontsLoaded]);
+  }, [fontsLoaded, isUserFetched]);
 
   return (
     <SafeAreaView
@@ -275,7 +282,8 @@ export default function App() {
                                       width: "33%",
                                       borderTopRightRadius: 4,
                                       bottom: "100%",
-                                      display: "none",
+                                      // display: isLoaded ? "flex" : "none",
+                                      display: "flex",
                                     }}
                                     variant="default"
                                   >
@@ -291,18 +299,9 @@ export default function App() {
                                         color: "#333",
                                         size: 32,
                                       }}
-                                      containerStyle={(active) =>
-                                        !active
-                                          ? {
-                                              backgroundColor: "white",
-                                            }
-                                          : {
-                                              borderTopWidth: 4,
-                                              borderTopColor: "#333",
-                                              borderTopLeftRadius: 4,
-                                              borderTopRightRadius: 4,
-                                            }
-                                      }
+                                      containerStyle={{
+                                        backgroundColor: "white",
+                                      }}
                                     />
 
                                     <Tab.Item
@@ -317,18 +316,9 @@ export default function App() {
                                         color: "#333",
                                         size: 28,
                                       }}
-                                      containerStyle={(active) =>
-                                        !active
-                                          ? {
-                                              backgroundColor: "white",
-                                            }
-                                          : {
-                                              borderTopWidth: 4,
-                                              borderTopColor: "#333",
-                                              borderTopLeftRadius: 4,
-                                              borderTopRightRadius: 4,
-                                            }
-                                      }
+                                      containerStyle={{
+                                        backgroundColor: "white",
+                                      }}
                                     />
 
                                     <Tab.Item
@@ -343,18 +333,9 @@ export default function App() {
                                         color: "#333",
                                         size: 32,
                                       }}
-                                      containerStyle={(active) =>
-                                        !active
-                                          ? {
-                                              backgroundColor: "white",
-                                            }
-                                          : {
-                                              borderTopWidth: 4,
-                                              borderTopColor: "#333",
-                                              borderTopLeftRadius: 4,
-                                              borderTopRightRadius: 4,
-                                            }
-                                      }
+                                      containerStyle={{
+                                        backgroundColor: "white",
+                                      }}
                                     />
                                   </Tab>
                                   <View className="bg-white w-full h-10 absolute bottom-[-40]"></View>

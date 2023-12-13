@@ -9,7 +9,7 @@ export const CartPageProvider = ({ children }) => {
   const [cartPage, setCartPage] = useState(false);
 
   useEffect(() => {
-    console.log(cartPage);
+    // console.log(cartPage);
   }, [cartPage]);
 
   return (

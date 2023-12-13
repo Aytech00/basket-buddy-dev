@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
-import { Button, Input, CheckBox, Icon } from "@rneui/base";
+import { Button, Input, CheckBox, Icon } from "@rneui/themed";
 import { supabase } from "../lib/supabase";
 import {
   View,
@@ -92,7 +92,7 @@ export default function NewSavedCart({
   //FYI Products won't show without this function being defined
   const fetchProductPrice = async (productID) => {
     console.log("fetchProductPrice");
-    console.log(productID);
+    // console.log(productID);
   };
 
   useEffect(() => {

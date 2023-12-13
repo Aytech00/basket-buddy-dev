@@ -13,7 +13,7 @@ const useKeyboardDismissOnScroll = (
       const scrollDifference = value - prevScrollY.current;
 
       console.log("SCROLL DIFFERENCE");
-      console.log(scrollDifference);
+      // console.log(scrollDifference);
       // If scrolling downwards (and not just adjusting for keyboard)
       if (
         isSearchFocused &&

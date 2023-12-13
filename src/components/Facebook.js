@@ -16,7 +16,7 @@
 // import { useEffect } from "react";
 // import * as FacebookAuth from "expo-auth-session/providers/facebook";
 import { StyleSheet, Image } from "react-native";
-import { Button } from "@rneui/base";
+import { Button } from "@rneui/themed";
 
 // export default function Facebook() {
 //   const [request, response, promptAsync] = FacebookAuth.useAuthRequest({
