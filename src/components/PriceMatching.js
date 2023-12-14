@@ -3,7 +3,7 @@ import React, { useEffect, useState, useContext, useCallback } from "react";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import { Button, Icon } from "@rneui/base";
 import { CartContext } from "../lib/cartContext";
-import { PremiumContext } from "../lib/premiumContext";
+import { PremiumContext } from "../lib/PremiumContext";
 import ProductDisplay from "../components/productsDisplay";
 import Text from "../components/ui/Text";
 import * as Linking from "expo-linking";

@@ -28,7 +28,7 @@ import PasswordResetScreen from "./src/pages/PasswordResetScreen";
 import EditPage from "./src/pages/EditPage";
 import { CartPageProvider } from "./src/lib/cartPageContext";
 import { AvatarProvider } from "./src/lib/avatarContext";
-import { PremiumProvider } from "./src/lib/premiumContext";
+import { PremiumProvider } from "./src/lib/PremiumContext";
 import { SearchProvider, useSearchContext } from "./src/lib/SearchBarContext";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
@@ -259,7 +259,7 @@ export default function App() {
                                   } bg-white`}
                                 >
                                   <Tab
-                                    className="absolute bottom-0 z-10 w-full border"
+                                    className="absolute bottom-0 z-10 w-full"
                                     value={index}
                                     onChange={(e) => {
                                       setCurrentPage(e);
@@ -269,12 +269,12 @@ export default function App() {
                                     }}
                                     style={{ elevation: 1 }}
                                     indicatorStyle={{
-                                      backgroundColor: "#333",
-                                      height: 4,
-                                      borderTopLeftRadius: 4,
-                                      width: "33%",
-                                      borderTopRightRadius: 4,
-                                      bottom: "100%",
+                                      // backgroundColor: "#333",
+                                      // height: 4,
+                                      // borderTopLeftRadius: 4,
+                                      // width: "33%",
+                                      // borderTopRightRadius: 4,
+                                      // bottom: "100%",
                                       display: "none",
                                     }}
                                     variant="default"
@@ -298,6 +298,7 @@ export default function App() {
                                         borderTopColor: active
                                           ? "#333"
                                           : "white",
+                                        borderBottomColor: "white",
                                         borderTopLeftRadius: 4,
                                         borderTopRightRadius: 4,
                                       })}
@@ -322,6 +323,7 @@ export default function App() {
                                         borderTopColor: active
                                           ? "#333"
                                           : "white",
+                                        borderBottomColor: "white",
                                         borderTopLeftRadius: 4,
                                         borderTopRightRadius: 4,
                                       })}
@@ -346,6 +348,7 @@ export default function App() {
                                         borderTopColor: active
                                           ? "#333"
                                           : "white",
+                                        borderBottomColor: "white",
                                         borderTopLeftRadius: 4,
                                         borderTopRightRadius: 4,
                                       })}

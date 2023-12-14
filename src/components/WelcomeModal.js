@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import Text from "../components/ui/Text";
 import Glen from "../../assets/images/glenn-happy.png";
 import Purchases, { LOG_LEVEL } from "react-native-purchases";
-import { PremiumContext } from "../lib/premiumContext";
+import { PremiumContext } from "../lib/PremiumContext";
 
 const ENTITLEMENT_ID = "basketBuddyPremium";
 
@@ -29,7 +29,7 @@ const WelcomeModal = ({
 
   useEffect(() => {
     setTimeout(() => {
-      !premium && setShow(true);
+      premium ? setShow(false) : setShow(true);
     }, 3000);
   }, [visible]);
 
@@ -56,6 +56,8 @@ const WelcomeModal = ({
 
       return acc;
     }, {});
+
+    console.log("productPrices", productPrices);
 
     const lowestPricedProducts = Object.values(groupedProducts);
 

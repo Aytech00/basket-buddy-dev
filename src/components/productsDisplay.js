@@ -4,7 +4,7 @@ import { Icon } from "@rneui/base";
 import { CartContext } from "../lib/cartContext";
 import { CheckBox } from "@rneui/themed";
 import Text from "../components/ui/Text";
-import { PremiumContext } from "../lib/premiumContext";
+import { PremiumContext } from "../lib/PremiumContext";
 
 export default function ProductDisplay({
   selectedStoreProduct,

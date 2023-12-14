@@ -6,7 +6,7 @@ import * as Linking from "expo-linking";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import MainHeaderContext from "../lib/MainHeaderContext";
 import { CartContext } from "../lib/cartContext";
-import { PremiumContext } from "../lib/premiumContext";
+import { PremiumContext } from "../lib/PremiumContext";
 import { useNavigation } from "@react-navigation/native";
 import ViewPrices from "../components/ViewPrices";
 import CartDisplay from "../components/cartDisplay";
@@ -201,7 +201,7 @@ const RenderStores = ({
   useEffect(() => {
     let productsMIN = 0;
     cart.map((product) => {
-      productsMIN += product.price.min * product.quantity;
+      productsMIN += product.price?.min * product?.quantity;
     });
     // console.log(productsMIN);
     setLowestPriceItems(productsMIN);

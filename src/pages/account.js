@@ -19,7 +19,7 @@ import MainHeaderContext from "../lib/MainHeaderContext";
 import CartPageContext from "../lib/cartPageContext";
 import { AvatarContext } from "../lib/avatarContext";
 import useScreenListener from "../components/useScreenListener";
-import { PremiumContext } from "../lib/premiumContext";
+import { PremiumContext } from "../lib/PremiumContext";
 import UserContext from "../lib/userContext";
 import Purchases from "react-native-purchases";
 
@@ -278,9 +278,10 @@ export default function Account({ route }) {
         <View style={styles.container}>
           <View style={styles.verticallySpaced}>
             <Button
-              title={premium ? "Deactivate Premium" : "Activate Premium"}
+              // title={premium ? "Deactivate Premium" : "Activate Premium"}
+              title={premium ? "Premium Activated" : "Activate Premium"}
               onPress={() => {
-                purchaseBasketBuddyPremium();
+                !premium && purchaseBasketBuddyPremium();
               }}
               color="#313131"
               containerStyle={{

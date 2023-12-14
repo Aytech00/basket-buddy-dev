@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { View, Text, ScrollView, Image, Pressable } from "react-native";
 import { Icon } from "@rneui/base";
 import { CartContext } from "../lib/cartContext";
-import { PremiumContext } from "../lib/premiumContext";
+import { PremiumContext } from "../lib/PremiumContext";
 
 export default function CartPage({ hide, storesNearYouPage }) {
   const { cart, removeFromCart, modifyCartItemQuantity } =
