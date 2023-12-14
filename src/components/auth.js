@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Alert, StyleSheet, View, Image, Text } from "react-native";
 import { supabase } from "../lib/supabase";
-import { Button, Input } from "@rneui/themed";
+import { Button, Input } from "@rneui/base";
 import { makeRedirectUri } from "expo-auth-session";
 import { supabaseUrl } from "../lib/supabase";
 import * as Linking from "expo-linking";

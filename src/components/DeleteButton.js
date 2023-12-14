@@ -1,4 +1,4 @@
-import { Button } from "@rneui/themed";
+import { Button } from "@rneui/base";
 import { supabase } from "../lib/supabase";
 
 export default function DeleteButton({ cartID, handleHeader }) {

@@ -46,7 +46,6 @@ export default function App() {
   const [search, setSearch] = useState("");
   const [isSearchFocused, setSearchFocus] = useState(false);
   const [resetPwd, setResetPwd] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
   const searchRef = useRef();
 
   const linking = {
@@ -88,12 +87,13 @@ export default function App() {
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
-      setIndex(1);
       setSession(session);
       setUser(session.user);
+      setIndex(1);
     });
 
     supabase.auth.onAuthStateChange((_event, session) => {
+      console.log(_event);
       setSession(session);
     });
   }, []);
@@ -108,6 +108,10 @@ export default function App() {
 
   const setCurrentPage = (i) => {
     let newPageName;
+
+    // if (i === index) {
+    //   return;
+    // }
 
     switch (i) {
       case 0:
@@ -133,10 +137,10 @@ export default function App() {
 
   const onLayoutSafeArea = useCallback(async () => {
     if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+      await new Promise((resolve) => setTimeout(resolve, 2000));
       setIndex(1);
       setCurrentPage(1); // homepage is default
-      setIsLoaded(true);
-      await SplashScreen.hideAsync();
     }
   }, [fontsLoaded]);
 
@@ -271,8 +275,7 @@ export default function App() {
                                       width: "33%",
                                       borderTopRightRadius: 4,
                                       bottom: "100%",
-                                      // display: isLoaded ? "flex" : "none",
-                                      display: "flex",
+                                      display: "none",
                                     }}
                                     variant="default"
                                   >
@@ -288,9 +291,16 @@ export default function App() {
                                         color: "#333",
                                         size: 32,
                                       }}
-                                      containerStyle={{
+                                      containerStyle={(active) => ({
                                         backgroundColor: "white",
-                                      }}
+                                        borderTopWidth: 4,
+                                        borderBottomWidth: 4,
+                                        borderTopColor: active
+                                          ? "#333"
+                                          : "white",
+                                        borderTopLeftRadius: 4,
+                                        borderTopRightRadius: 4,
+                                      })}
                                     />
 
                                     <Tab.Item
@@ -305,9 +315,16 @@ export default function App() {
                                         color: "#333",
                                         size: 28,
                                       }}
-                                      containerStyle={{
+                                      containerStyle={(active) => ({
                                         backgroundColor: "white",
-                                      }}
+                                        borderTopWidth: 4,
+                                        borderBottomWidth: 4,
+                                        borderTopColor: active
+                                          ? "#333"
+                                          : "white",
+                                        borderTopLeftRadius: 4,
+                                        borderTopRightRadius: 4,
+                                      })}
                                     />
 
                                     <Tab.Item
@@ -322,9 +339,16 @@ export default function App() {
                                         color: "#333",
                                         size: 32,
                                       }}
-                                      containerStyle={{
+                                      containerStyle={(active) => ({
                                         backgroundColor: "white",
-                                      }}
+                                        borderTopWidth: 4,
+                                        borderBottomWidth: 4,
+                                        borderTopColor: active
+                                          ? "#333"
+                                          : "white",
+                                        borderTopLeftRadius: 4,
+                                        borderTopRightRadius: 4,
+                                      })}
                                     />
                                   </Tab>
                                   <View className="bg-white w-full h-10 absolute bottom-[-40]"></View>

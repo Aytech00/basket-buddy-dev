@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Button } from "@rneui/themed";
+import { Button } from "@rneui/base";
 import Text from "../components/ui/Text";
 import { CartContext } from "../lib/cartContext";
 import { supabase } from "../lib/supabase";

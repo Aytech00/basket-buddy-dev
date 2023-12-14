@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Input } from "@rneui/themed";
+import { Button, Input } from "@rneui/base";
 import { View, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 

@@ -1,7 +1,7 @@
 import { View, StyleSheet, Image } from "react-native";
 import React, { useEffect, useState, useContext, useCallback } from "react";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
-import { Button, Icon } from "@rneui/themed";
+import { Button, Icon } from "@rneui/base";
 import { CartContext } from "../lib/cartContext";
 import { PremiumContext } from "../lib/premiumContext";
 import ProductDisplay from "../components/productsDisplay";

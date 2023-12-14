@@ -3,7 +3,7 @@ import { ScrollView, View, Image, Text, TouchableOpacity } from "react-native";
 import Chevron from "../components/ui/Chevron";
 
 import { useIsFocused } from "@react-navigation/native";
-import { Icon } from "@rneui/themed";
+import { Icon } from "@rneui/base";
 import { supabase } from "../lib/supabase";
 import CartGrid from "../components/ui/cartGrid";
 import { AvatarLayout } from "./SkeletonLoader";

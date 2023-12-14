@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
-import { Button, Input, CheckBox, Icon } from "@rneui/themed";
+import { Button, Input, CheckBox, Icon } from "@rneui/base";
 import { supabase } from "../lib/supabase";
 import {
   View,

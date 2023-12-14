@@ -1,18 +1,13 @@
-import {
-  View,
-  Modal,
-  TouchableOpacity,
-  StyleSheet,
-  Image,
-  Alert,
-} from "react-native";
-import { Button } from "@rneui/themed";
+import { View, Modal, TouchableOpacity, StyleSheet, Image } from "react-native";
+import { Button } from "@rneui/base";
 import { useEffect, useState, useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Text from "../components/ui/Text";
 import Glen from "../../assets/images/glenn-happy.png";
 import Purchases, { LOG_LEVEL } from "react-native-purchases";
 import { PremiumContext } from "../lib/premiumContext";
+
+const ENTITLEMENT_ID = "basketBuddyPremium";
 
 const WelcomeModal = ({
   visible,
@@ -26,7 +21,7 @@ const WelcomeModal = ({
   const [lowestPriceTotal, setLowestPriceTotal] = useState(0);
   const [show, setShow] = useState(false);
   const navigation = useNavigation();
-  const { setPremium, offerings } = useContext(PremiumContext);
+  const { premium, setPremium, offerings } = useContext(PremiumContext);
 
   const closeModal = () => {
     setShow(false);
@@ -34,7 +29,7 @@ const WelcomeModal = ({
 
   useEffect(() => {
     setTimeout(() => {
-      setShow(true);
+      !premium && setShow(true);
     }, 3000);
   }, [visible]);
 
@@ -94,46 +89,31 @@ const WelcomeModal = ({
   });
 
   const purchaseBasketBuddyPremium = async () => {
-    console.log(offerings.current);
+    closeModal();
+
     try {
       if (offerings.current && offerings.current.monthly) {
-        Alert.alert(offerings?.current?.monthly?.product?.priceString);
         const product = offerings.current.monthly;
 
-        // Get the price and introductory period from the PurchasesProduct
-        if (
-          offerings.current !== null &&
-          offerings.current.availablePackages.length !== 0
-        ) {
-          try {
-            // console.log("running", product);
-            const { customerInfo, productIdentifier } =
-              await Purchases.purchasePackage(
-                offerings.current.availablePackages[0]
-              );
-            console.log("customer Info");
-            // console.log(customerInfo);
-            console.log("productIdentifier");
-            // console.log(productIdentifier);
-            if (
-              typeof customerInfo.entitlements.active
-                .my_entitlement_identifier !== "undefined"
-            ) {
-              // Unlock that great "pro" content
-              setPremium(true);
-              closeModal();
-            }
-          } catch (e) {
-            Alert.alert(e);
-            if (!e.userCancelled) {
-              console.log(e?.message || e);
-            }
+        try {
+          // console.log("running", product);
+          const { customerInfo } = await Purchases.purchasePackage(product);
+
+          if (
+            typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !==
+            "undefined"
+          ) {
+            // Unlock that great "pro" content
+            setPremium(true);
+          }
+        } catch (e) {
+          if (!e.userCancelled) {
+            console.log(e?.message || e);
           }
         }
       }
     } catch (e) {
       console.log("offeringsError", e);
-      Alert(e);
     }
   };
 

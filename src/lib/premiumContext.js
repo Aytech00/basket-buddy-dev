@@ -1,7 +1,9 @@
 import React, { createContext, useState, useEffect } from "react";
 import Purchases, { LOG_LEVEL } from "react-native-purchases";
-import { Alert, Platform } from "react-native";
+import { Platform } from "react-native";
 export const PremiumContext = createContext();
+
+const ENTITLEMENT_ID = "basketBuddyPremium";
 
 export const PremiumProvider = ({ children }) => {
   const [premium, setPremium] = useState(false);
@@ -34,28 +36,25 @@ export const PremiumProvider = ({ children }) => {
     init();
   }, []); // Empty dependency array ensures this useEffect runs only once, similar to componentDidMount
 
-  // useEffect(() => {
-  //   const customerInfo = async () => {
-  //     try {
-  //       const customerInfo = await Purchases.getCustomerInfo();
-  //       console.log("CUSTOMER INFO");
-  //       console.log(customerInfo.entitlements.active["basket buddy premium"]);
-  //       // Check if the 'basket buddy premium' entitlement is active.
-  //       if (customerInfo.entitlements.active["basket buddy premium"]) {
-  //         console.log("Subscription is active");
-  //         setPremium(true);
-  //       } else {
-  //         console.log("No active subscription");
-  //         setPremium(false);
-  //       }
-  //     } catch (e) {
-  //       // Error fetching customer info
-  //       console.log("Error fetching customer info:", e);
-  //     }
-  //   };
+  useEffect(() => {
+    const customerInfo = async () => {
+      try {
+        const customerInfo = await Purchases.getCustomerInfo();
 
-  //   customerInfo();
-  // }, []);
+        if (
+          typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !==
+          "undefined"
+        )
+          setPremium(true);
+        else setPremium(false);
+      } catch (e) {
+        // Error fetching customer info
+        console.log("Error fetching customer info:", e);
+      }
+    };
+
+    customerInfo();
+  }, []);
 
   return (
     <PremiumContext.Provider

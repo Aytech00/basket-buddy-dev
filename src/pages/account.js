@@ -10,7 +10,7 @@ import {
   Text as NativeText,
   TouchableOpacity,
 } from "react-native";
-import { Button } from "@rneui/themed";
+import { Button } from "@rneui/base";
 import Text from "../components/ui/Text";
 import Avatar from "../components/Avatar";
 import * as Linking from "expo-linking";
@@ -21,6 +21,9 @@ import { AvatarContext } from "../lib/avatarContext";
 import useScreenListener from "../components/useScreenListener";
 import { PremiumContext } from "../lib/premiumContext";
 import UserContext from "../lib/userContext";
+import Purchases from "react-native-purchases";
+
+const ENTITLEMENT_ID = "basketBuddyPremium";
 
 export default function Account({ route }) {
   const [loading, setLoading] = useState(true);
@@ -32,7 +35,7 @@ export default function Account({ route }) {
   const [profiles, setProfiles] = useState();
   const scrollY = useRef(new Animated.Value(0)).current;
   const scrollViewRef = useRef(null);
-  const { setPremium, premium } = useContext(PremiumContext);
+  const { setPremium, premium, offerings } = useContext(PremiumContext);
   const { setIndex } = useContext(UserContext);
 
   const { sessionID, session } = route.params.props;
@@ -131,6 +134,35 @@ export default function Account({ route }) {
       setLoading(false);
     }
   }
+
+  const purchaseBasketBuddyPremium = async () => {
+    try {
+      if (offerings.current && offerings.current.monthly) {
+        const product = offerings.current.monthly;
+
+        try {
+          // console.log("running", product);
+          const { customerInfo } = await Purchases.purchasePackage(product);
+
+          if (
+            typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !==
+            "undefined"
+          ) {
+            // Unlock that great "pro" content
+            setPremium(true);
+            closeModal();
+          }
+        } catch (e) {
+          if (!e.userCancelled) {
+            console.log(e?.message || e);
+          }
+        }
+      }
+    } catch (e) {
+      console.log("offeringsError", e);
+      Alert(e);
+    }
+  };
 
   return (
     <>
@@ -247,8 +279,8 @@ export default function Account({ route }) {
           <View style={styles.verticallySpaced}>
             <Button
               title={premium ? "Deactivate Premium" : "Activate Premium"}
-              onPress={async () => {
-                setPremium(!premium);
+              onPress={() => {
+                purchaseBasketBuddyPremium();
               }}
               color="#313131"
               containerStyle={{

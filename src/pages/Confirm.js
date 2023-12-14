@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
-import { Button } from "@rneui/themed";
+import { Button } from "@rneui/base";
 import { supabase } from "../lib/supabase";
 import Glen from "../images/glenn-happy.png";
 

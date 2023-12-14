@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { View, ScrollView, Image, Pressable } from "react-native";
-import { Icon } from "@rneui/themed";
+import { Icon } from "@rneui/base";
 import { CartContext } from "../lib/cartContext";
 import { CheckBox } from "@rneui/themed";
 import Text from "../components/ui/Text";

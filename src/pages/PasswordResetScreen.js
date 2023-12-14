@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { Input } from "@rneui/themed";
+import { Input } from "@rneui/base";
 
 export default function PasswordReset() {
   const [newPassword, setPassword] = useState("");

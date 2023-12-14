@@ -6,7 +6,7 @@ import {
   Image,
   ActivityIndicator,
 } from "react-native";
-import { Button, Input } from "@rneui/themed";
+import { Button, Input } from "@rneui/base";
 import { supabase } from "../lib/supabase";
 import Text from "../components/ui/Text";
 import * as ImagePicker from "expo-image-picker";

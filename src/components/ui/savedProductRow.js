@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { View, Pressable, Image, Text } from "react-native";
-import { Button, Icon } from "@rneui/themed";
+import { Button, Icon } from "@rneui/base";
 import { supabase } from "../../lib/supabase";
 import { SavedCartContext } from "../../lib/SavedCartContext";
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { ScrollView, View, Image, TouchableOpacity } from "react-native";
 import Text from "../components/ui/Text";
-import { Button, Icon } from "@rneui/themed";
+import { Button, Icon } from "@rneui/base";
 import * as Linking from "expo-linking";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import MainHeaderContext from "../lib/MainHeaderContext";
