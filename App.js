@@ -47,7 +47,6 @@ export default function App() {
   const [isSearchFocused, setSearchFocus] = useState(false);
   const [resetPwd, setResetPwd] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [isUserFetched, setIsUserFetched] = useState(false);
   const searchRef = useRef();
 
   const linking = {
@@ -88,22 +87,15 @@ export default function App() {
   const [session, setSession] = useState(null);
 
   useEffect(() => {
-    (async () => {
-      try {
-        await supabase.auth.getSession().then(({ data: { session } }) => {
-          setSession(session);
-          setUser(session.user);
-          setIndex(1);
-        });
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setIndex(1);
+      setSession(session);
+      setUser(session.user);
+    });
 
-        supabase.auth.onAuthStateChange((_event, session) => {
-          setSession(session);
-        });
-      } finally {
-        setIndex(1);
-        setIsUserFetched(true);
-      }
-    })();
+    supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
   }, []);
 
   useEffect(() => {
@@ -140,16 +132,13 @@ export default function App() {
   };
 
   const onLayoutSafeArea = useCallback(async () => {
-    if (fontsLoaded && isUserFetched) {
+    if (fontsLoaded) {
       setIndex(1);
       setCurrentPage(1); // homepage is default
       setIsLoaded(true);
-      await new Promise((resolve) => {
-        setTimeout(resolve, 2000);
-      });
       await SplashScreen.hideAsync();
     }
-  }, [fontsLoaded, isUserFetched]);
+  }, [fontsLoaded]);
 
   return (
     <SafeAreaView
