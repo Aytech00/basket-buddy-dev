@@ -35,8 +35,7 @@ export default function Account({ route }) {
   const [profiles, setProfiles] = useState();
   const scrollY = useRef(new Animated.Value(0)).current;
   const scrollViewRef = useRef(null);
-  const { setPremium, premium, offerings, activated } =
-    useContext(PremiumContext);
+  const { setPremium, premium, offerings } = useContext(PremiumContext);
   const { setIndex } = useContext(UserContext);
   const [activatingPremium, setActivatingPremium] = useState(false);
 
@@ -138,16 +137,6 @@ export default function Account({ route }) {
   }
 
   const purchaseBasketBuddyPremium = async () => {
-    if (premium) {
-      setPremium(false);
-      return;
-    }
-
-    if (activated) {
-      setPremium(true);
-      return;
-    }
-
     setActivatingPremium(true);
 
     try {
@@ -157,6 +146,7 @@ export default function Account({ route }) {
         try {
           // console.log("running", product);
           const { customerInfo } = await Purchases.purchasePackage(product);
+          setActivatingPremium(false);
 
           if (
             typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !==
@@ -164,9 +154,9 @@ export default function Account({ route }) {
           ) {
             // Unlock that great "pro" content
             setPremium(true);
-            closeModal();
           }
         } catch (e) {
+          setActivatingPremium(false);
           if (!e.userCancelled) {
             console.log(e?.message || e);
           }
@@ -297,7 +287,6 @@ export default function Account({ route }) {
           <View style={styles.verticallySpaced}>
             <Button
               title={premium ? "Deactivate Premium" : "Activate Premium"}
-              // title={premium ? "Premium Activated" : "Activate Premium"}
               onPress={purchaseBasketBuddyPremium}
               color="#313131"
               containerStyle={{

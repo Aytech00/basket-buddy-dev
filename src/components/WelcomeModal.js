@@ -22,8 +22,7 @@ const WelcomeModal = ({
   const [show, setShow] = useState(false);
   const [activatingPremium, setActivatingPremium] = useState(false);
   const navigation = useNavigation();
-  const { premium, setPremium, offerings, activated } =
-    useContext(PremiumContext);
+  const { premium, setPremium, offerings } = useContext(PremiumContext);
 
   const closeModal = () => {
     setShow(false);
@@ -93,13 +92,6 @@ const WelcomeModal = ({
   });
 
   const purchaseBasketBuddyPremium = async () => {
-    closeModal();
-
-    if (activated) {
-      setPremium(true);
-      return;
-    }
-
     setActivatingPremium(true);
 
     try {
@@ -109,6 +101,7 @@ const WelcomeModal = ({
         try {
           // console.log("running", product);
           const { customerInfo } = await Purchases.purchasePackage(product);
+          closeModal();
 
           if (
             typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !==
@@ -118,10 +111,12 @@ const WelcomeModal = ({
             setPremium(true);
           }
         } catch (e) {
+          closeModal();
           if (!e.userCancelled) {
             console.log(e?.message || e);
           }
         } finally {
+          closeModal();
           setActivatingPremium(false);
         }
       }
