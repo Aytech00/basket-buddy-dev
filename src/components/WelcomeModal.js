@@ -20,8 +20,10 @@ const WelcomeModal = ({
   const [lowestPriceProducts, setLowestPriceProducts] = useState(0);
   const [lowestPriceTotal, setLowestPriceTotal] = useState(0);
   const [show, setShow] = useState(false);
+  const [activatingPremium, setActivatingPremium] = useState(false);
   const navigation = useNavigation();
-  const { premium, setPremium, offerings } = useContext(PremiumContext);
+  const { premium, setPremium, offerings, activated } =
+    useContext(PremiumContext);
 
   const closeModal = () => {
     setShow(false);
@@ -29,7 +31,7 @@ const WelcomeModal = ({
 
   useEffect(() => {
     setTimeout(() => {
-      premium ? setShow(false) : setShow(true);
+      activated ? setShow(false) : setShow(true);
     }, 3000);
   }, [visible]);
 
@@ -93,6 +95,18 @@ const WelcomeModal = ({
   const purchaseBasketBuddyPremium = async () => {
     closeModal();
 
+    if (premium) {
+      setPremium(false);
+      return;
+    }
+
+    if (activated) {
+      setPremium(true);
+      return;
+    }
+
+    setActivatingPremium(true);
+
     try {
       if (offerings.current && offerings.current.monthly) {
         const product = offerings.current.monthly;
@@ -112,10 +126,14 @@ const WelcomeModal = ({
           if (!e.userCancelled) {
             console.log(e?.message || e);
           }
+        } finally {
+          setActivatingPremium(false);
         }
       }
     } catch (e) {
       console.log("offeringsError", e);
+    } finally {
+      setActivatingPremium(false);
     }
   };
 
@@ -198,9 +216,8 @@ const WelcomeModal = ({
             containerStyle={{
               marginTop: 20,
             }}
-            onPress={() => {
-              purchaseBasketBuddyPremium();
-            }}
+            onPress={() => purchaseBasketBuddyPremium}
+            loading={activatingPremium}
           >
             <Text
               style={{ color: "white", fontSize: 14 }}

@@ -7,6 +7,7 @@ const ENTITLEMENT_ID = "basketBuddyPremium";
 
 const PremiumProvider = ({ children }) => {
   const [premium, setPremium] = useState(false);
+  const [activated, setActivated] = useState(false);
   const [offerings, setOfferings] = useState(null);
 
   useEffect(() => {
@@ -17,9 +18,13 @@ const PremiumProvider = ({ children }) => {
         if (
           typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !==
           "undefined"
-        )
+        ) {
+          setActivated(true);
           setPremium(true);
-        else setPremium(false);
+        } else {
+          setActivated(false);
+          setPremium(false);
+        }
       } catch (e) {
         console.log("Error fetching customer info:", e);
       }
@@ -56,7 +61,7 @@ const PremiumProvider = ({ children }) => {
 
   return (
     <PremiumContext.Provider
-      value={{ premium, setPremium, offerings, setOfferings }}
+      value={{ activated, premium, setPremium, offerings, setOfferings }}
     >
       {children}
     </PremiumContext.Provider>

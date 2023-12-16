@@ -35,8 +35,10 @@ export default function Account({ route }) {
   const [profiles, setProfiles] = useState();
   const scrollY = useRef(new Animated.Value(0)).current;
   const scrollViewRef = useRef(null);
-  const { setPremium, premium, offerings } = useContext(PremiumContext);
+  const { setPremium, premium, offerings, activated } =
+    useContext(PremiumContext);
   const { setIndex } = useContext(UserContext);
+  const [activatingPremium, setActivatingPremium] = useState(false);
 
   const { sessionID, session } = route.params.props;
   const navigation = useNavigation();
@@ -136,6 +138,18 @@ export default function Account({ route }) {
   }
 
   const purchaseBasketBuddyPremium = async () => {
+    if (premium) {
+      setPremium(false);
+      return;
+    }
+
+    if (activated) {
+      setPremium(true);
+      return;
+    }
+
+    setActivatingPremium(true);
+
     try {
       if (offerings.current && offerings.current.monthly) {
         const product = offerings.current.monthly;
@@ -156,11 +170,15 @@ export default function Account({ route }) {
           if (!e.userCancelled) {
             console.log(e?.message || e);
           }
+        } finally {
+          setActivatingPremium(false);
         }
       }
     } catch (e) {
       console.log("offeringsError", e);
       Alert(e);
+    } finally {
+      setActivatingPremium(false);
     }
   };
 
@@ -278,15 +296,14 @@ export default function Account({ route }) {
         <View style={styles.container}>
           <View style={styles.verticallySpaced}>
             <Button
-              // title={premium ? "Deactivate Premium" : "Activate Premium"}
-              title={premium ? "Premium Activated" : "Activate Premium"}
-              onPress={() => {
-                !premium && purchaseBasketBuddyPremium();
-              }}
+              title={premium ? "Deactivate Premium" : "Activate Premium"}
+              // title={premium ? "Premium Activated" : "Activate Premium"}
+              onPress={purchaseBasketBuddyPremium}
               color="#313131"
               containerStyle={{
                 marginTop: 20,
               }}
+              loading={activatingPremium}
             />
           </View>
 

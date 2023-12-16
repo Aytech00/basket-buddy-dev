@@ -27,7 +27,7 @@ export default function CartPage() {
     useContext(CartContext);
   const navigation = useNavigation();
   const { setShowHeader } = useContext(MainHeaderContext);
-  const { session } = useContext(UserContext);
+  const { session, setHighestPrice } = useContext(UserContext);
   const [subtotal, setSubtotal] = useState({ min: 0, max: 0 });
   const { setCartPage } = useContext(CartPageContext);
 
@@ -92,6 +92,10 @@ export default function CartPage() {
     };
     fetchAllSimilarProducts();
   }, [cart]);
+
+  useEffect(() => {
+    subtotal.max && setHighestPrice(subtotal.max);
+  }, [subtotal]);
 
   //function that saves the current cart and sends it to supabase
   const saveCart = async () => {

@@ -16,7 +16,7 @@ import { ScrollView } from "react-native-gesture-handler";
 const PriceMatching = React.forwardRef((props, ref) => {
   const { snapPoints, onClose } = props;
   const [lowestProducts, setLowestProducts] = useState();
-  const { session } = useContext(UserContext);
+  const { session, highestPrice } = useContext(UserContext);
   const { setShowHeader } = useContext(MainHeaderContext);
   const [highestSubtotal, setHighestSubtotal] = useState(0);
   const [lowestSubtotal, setLowestSubtotal] = useState(0);
@@ -27,6 +27,7 @@ const PriceMatching = React.forwardRef((props, ref) => {
   const { cart } = useContext(CartContext);
   const { premium } = useContext(PremiumContext);
   const [subtotal, setSubtotal] = useState(0);
+  const [lowestPrices, setLowestPrices] = useState(0);
 
   useEffect(() => {
     if (props.selectedGrocery !== undefined && props.selectedGrocery !== null) {
@@ -49,14 +50,13 @@ const PriceMatching = React.forwardRef((props, ref) => {
         lowestSubtotal += price;
       }
 
-      permiumSavings = highestStore - lowestSubtotal;
-      freeSavings = highestStore - store.subtotal;
+      console.log(highestStore);
+      setLowestPrices(lowestSubtotal);
+      permiumSavings = highestPrice - lowestSubtotal;
+      freeSavings = highestPrice - store.subtotal;
 
-      if (premium) {
-        setSavings(permiumSavings.toFixed(2));
-      } else {
-        setSavings(freeSavings.toFixed(2));
-      }
+      if (premium) setSavings(permiumSavings.toFixed(2));
+      else setSavings(freeSavings.toFixed(2));
     }
   }, [highestSubtotal, store, premium, lowestProducts]);
 
@@ -475,8 +475,25 @@ const PriceMatching = React.forwardRef((props, ref) => {
                   className="text-xl text-[#6ECB33] "
                 >
                   {premium === true
-                    ? `$${lowestSubtotal.toFixed(2)}`
-                    : `$${subtotal}`}
+                    ? // ? `$${lowestSubtotal.toFixed(2)}`
+                      `$${lowestPrices.toFixed(2)}`
+                    : // `$${lowestProducts
+                      //   ?.map((product) => {
+                      //     const item = cart?.find(
+                      //       (cartItem) =>
+                      //         cartItem.product.basket_buddy_id ==
+                      //         product.basket_buddy_id
+                      //     );
+
+                      //     return (
+                      //       parseFloat(
+                      //         product.individual_price.replace("$", "").trim()
+                      //       ) * item.quantity
+                      //     );
+                      //   })
+                      //   ?.reduce((a, b) => a + b, 0)
+                      //   ?.toFixed(2)}`
+                      `$${subtotal}`}
                 </Text>
               </View>
             </View>

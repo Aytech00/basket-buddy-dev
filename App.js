@@ -46,6 +46,7 @@ export default function App() {
   const [search, setSearch] = useState("");
   const [isSearchFocused, setSearchFocus] = useState(false);
   const [resetPwd, setResetPwd] = useState(false);
+  const [highestPrice, setHighestPrice] = useState();
   const searchRef = useRef();
 
   const linking = {
@@ -166,6 +167,8 @@ export default function App() {
               isSearchFocused,
               setSearchFocus,
               setIndex,
+              setHighestPrice,
+              highestPrice,
             }}
           >
             <PremiumProvider>
@@ -295,10 +298,10 @@ export default function App() {
                                         backgroundColor: "white",
                                         borderTopWidth: 4,
                                         borderBottomWidth: 4,
+                                        borderColor: "white",
                                         borderTopColor: active
                                           ? "#333"
                                           : "white",
-                                        borderBottomColor: "white",
                                         borderTopLeftRadius: 4,
                                         borderTopRightRadius: 4,
                                       })}
@@ -320,10 +323,10 @@ export default function App() {
                                         backgroundColor: "white",
                                         borderTopWidth: 4,
                                         borderBottomWidth: 4,
+                                        borderColor: "white",
                                         borderTopColor: active
                                           ? "#333"
                                           : "white",
-                                        borderBottomColor: "white",
                                         borderTopLeftRadius: 4,
                                         borderTopRightRadius: 4,
                                       })}
@@ -345,10 +348,10 @@ export default function App() {
                                         backgroundColor: "white",
                                         borderTopWidth: 4,
                                         borderBottomWidth: 4,
+                                        borderColor: "white",
                                         borderTopColor: active
                                           ? "#333"
                                           : "white",
-                                        borderBottomColor: "white",
                                         borderTopLeftRadius: 4,
                                         borderTopRightRadius: 4,
                                       })}

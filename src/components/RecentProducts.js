@@ -33,7 +33,7 @@ const RecentProducts = () => {
             .single()
             .limit(1);
           if (error) {
-            console.error("Error fetching product:", error);
+            // console.error("Error fetching product:", error);
             return null;
           }
           if (product) {

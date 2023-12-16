@@ -78,7 +78,7 @@ export default function DoneShopping({ route }) {
           fontType="Nunito-ExtraBold"
           className="text-[#6ECB33] text-[45px]"
         >
-          ${saved}
+          ${Math.abs(saved)}
         </Text>
 
         <Text style={styles.text} fontType="Nunito-ExtraBold">
