@@ -31,7 +31,7 @@ const WelcomeModal = ({
 
   useEffect(() => {
     setTimeout(() => {
-      activated ? setShow(false) : setShow(true);
+      premium ? setShow(false) : setShow(true);
     }, 3000);
   }, [visible]);
 
@@ -94,11 +94,6 @@ const WelcomeModal = ({
 
   const purchaseBasketBuddyPremium = async () => {
     closeModal();
-
-    if (premium) {
-      setPremium(false);
-      return;
-    }
 
     if (activated) {
       setPremium(true);
@@ -216,7 +211,7 @@ const WelcomeModal = ({
             containerStyle={{
               marginTop: 20,
             }}
-            onPress={() => purchaseBasketBuddyPremium}
+            onPress={purchaseBasketBuddyPremium}
             loading={activatingPremium}
           >
             <Text

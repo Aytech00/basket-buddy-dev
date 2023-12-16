@@ -294,7 +294,10 @@ export default function App() {
                                         color: "#333",
                                         size: 32,
                                       }}
-                                      containerStyle={(active) => ({
+                                      containerStyle={() => ({
+                                        backgroundColor: "white",
+                                      })}
+                                      buttonStyle={(active) => ({
                                         backgroundColor: "white",
                                         borderTopWidth: 4,
                                         borderBottomWidth: 4,
@@ -319,7 +322,10 @@ export default function App() {
                                         color: "#333",
                                         size: 28,
                                       }}
-                                      containerStyle={(active) => ({
+                                      containerStyle={() => ({
+                                        backgroundColor: "white",
+                                      })}
+                                      buttonStyle={(active) => ({
                                         backgroundColor: "white",
                                         borderTopWidth: 4,
                                         borderBottomWidth: 4,
@@ -344,7 +350,10 @@ export default function App() {
                                         color: "#333",
                                         size: 32,
                                       }}
-                                      containerStyle={(active) => ({
+                                      containerStyle={() => ({
+                                        backgroundColor: "white",
+                                      })}
+                                      buttonStyle={(active) => ({
                                         backgroundColor: "white",
                                         borderTopWidth: 4,
                                         borderBottomWidth: 4,
