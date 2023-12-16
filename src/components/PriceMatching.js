@@ -52,9 +52,10 @@ const PriceMatching = React.forwardRef((props, ref) => {
 
       console.log(highestStore);
       setLowestPrices(lowestSubtotal);
-      permiumSavings = highestPrice - lowestSubtotal;
-      freeSavings = highestPrice - store.subtotal;
+      permiumSavings = highestStore - lowestSubtotal;
+      freeSavings = highestStore - store.subtotal;
 
+      console.log("highestStore", permiumSavings);
       if (premium) setSavings(permiumSavings.toFixed(2));
       else setSavings(freeSavings.toFixed(2));
     }

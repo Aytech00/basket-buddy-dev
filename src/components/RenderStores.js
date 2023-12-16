@@ -428,7 +428,12 @@ const RenderStores = ({
                         {subtotal === 0 ? (
                           <Text>Unavailable</Text>
                         ) : (
-                          <Text>${subtotal.toFixed(2)} </Text>
+                          <Text>
+                            $
+                            {premium
+                              ? lowestPricedItems?.toFixed(2)
+                              : subtotal?.toFixed(2)}{" "}
+                          </Text>
                         )}
                       </Text>
                     </View>
