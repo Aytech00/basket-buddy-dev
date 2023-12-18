@@ -16,6 +16,7 @@ import { ScrollView } from "react-native-gesture-handler";
 const PriceMatching = React.forwardRef((props, ref) => {
   const { snapPoints, onClose } = props;
   const [lowestProducts, setLowestProducts] = useState();
+  const [highestProducts, setHighestProducts] = useState();
   const { session, highestPrice } = useContext(UserContext);
   const { setShowHeader } = useContext(MainHeaderContext);
   const [highestSubtotal, setHighestSubtotal] = useState(0);
@@ -26,6 +27,7 @@ const PriceMatching = React.forwardRef((props, ref) => {
   const [savings, setSavings] = useState(0);
   const { cart } = useContext(CartContext);
   const { premium } = useContext(PremiumContext);
+  const { highestStore: highestStoreTotal } = useContext(UserContext);
   const [subtotal, setSubtotal] = useState(0);
   const [lowestPrices, setLowestPrices] = useState(0);
 
@@ -45,21 +47,26 @@ const PriceMatching = React.forwardRef((props, ref) => {
 
       // Calculate the total price of the lowest-priced products
       for (const product of lowestProducts) {
-        const price = parseFloat(product.individual_price.replace("$", ""));
+        const price = parseFloat(product?.individual_price.replace("$", ""));
         // console.log("Subtotal", lowestSubtotal);
         lowestSubtotal += price;
       }
 
-      console.log(highestStore);
       setLowestPrices(lowestSubtotal);
-      permiumSavings = highestStore - lowestSubtotal;
-      freeSavings = highestStore - store.subtotal;
+      permiumSavings = highestStoreTotal - lowestPriceHandler();
+      freeSavings = highestStoreTotal - store.subtotal;
 
-      console.log("highestStore", permiumSavings);
-      if (premium) setSavings(permiumSavings.toFixed(2));
-      else setSavings(freeSavings.toFixed(2));
+      if (premium) setSavings(permiumSavings?.toFixed(2));
+      else setSavings(freeSavings?.toFixed(2));
     }
-  }, [highestSubtotal, store, premium, lowestProducts]);
+  }, [
+    highestSubtotal,
+    store,
+    premium,
+    lowestProducts,
+    highestProducts,
+    highestStoreTotal,
+  ]);
 
   useEffect(() => {
     // console.log("props.selectedGrocery", props.selectedGrocery.subtotal);
@@ -72,7 +79,7 @@ const PriceMatching = React.forwardRef((props, ref) => {
     let maxSubtotal = 0;
     if (props.foundProducts) {
       for (const product of props.foundProducts) {
-        const price = parseFloat(product.individual_price.replace("$", ""));
+        const price = parseFloat(product?.individual_price.replace("$", ""));
         if (price > maxSubtotal) {
           maxSubtotal = price;
         }
@@ -113,7 +120,7 @@ const PriceMatching = React.forwardRef((props, ref) => {
         let lowestPrice = Infinity;
 
         for (const product of matchingProducts) {
-          const price = parseFloat(product.individual_price.replace("$", ""));
+          const price = parseFloat(product?.individual_price.replace("$", ""));
 
           if (price < lowestPrice) {
             lowestPrice = price;
@@ -173,6 +180,22 @@ const PriceMatching = React.forwardRef((props, ref) => {
 
   const renderedProducts = new Set();
 
+  function lowestPriceHandler() {
+    return lowestProducts
+      ?.map((product) => {
+        const item = cart?.find(
+          (cartItem) =>
+            cartItem.product.basket_buddy_id == product.basket_buddy_id
+        );
+
+        return (
+          parseFloat(product?.individual_price.replace("$", "").trim()) *
+          item.quantity
+        );
+      })
+      ?.reduce((a, b) => a + b, 0);
+  }
+
   return (
     <BottomSheet
       ref={ref}
@@ -217,14 +240,14 @@ const PriceMatching = React.forwardRef((props, ref) => {
                     if (store.productsInStore) {
                       matchingProduct = store.productsInStore.find(
                         (storeProduct) =>
-                          storeProduct.basket_buddy_id ===
-                          product.basket_buddy_id
+                          storeProduct?.basket_buddy_id ===
+                          product?.basket_buddy_id
                       );
                     }
 
                     if (
-                      matchingProduct.individual_price ===
-                      product.individual_price
+                      matchingProduct?.individual_price ===
+                      product?.individual_price
                     ) {
                       return null;
                     }
@@ -254,13 +277,13 @@ const PriceMatching = React.forwardRef((props, ref) => {
                               fontType={"Nunito-ExtraBold"}
                               className="text-[#6ECB33] text-sm truncate"
                             >
-                              {product.individual_price}
+                              {product?.individual_price}
                             </Text>
                             <Text
                               fontType={"Nunito-ExtraBold"}
                               className="text-[#8E212180] text-xs pl-1 line-through"
                             >
-                              {matchingProduct.individual_price}
+                              {matchingProduct?.individual_price}
                             </Text>
                           </View>
                         </View>
@@ -339,7 +362,7 @@ const PriceMatching = React.forwardRef((props, ref) => {
                   }
                   matchingProduct = store.productsInStore.find(
                     (storeProduct) =>
-                      storeProduct.basket_buddy_id === product.basket_buddy_id
+                      storeProduct?.basket_buddy_id === product?.basket_buddy_id
                   );
                 }
 
@@ -354,15 +377,15 @@ const PriceMatching = React.forwardRef((props, ref) => {
                   {
                     /* Add the basket_buddy_id to the renderedProducts Set to avoid duplicate renders */
                   }
-                  renderedProducts.add(product.basket_buddy_id);
+                  renderedProducts.add(product?.basket_buddy_id);
                   {
                     /* Render the product */
                   }
 
                   let matchingCartItem = cart.find(
                     (cartItem) =>
-                      cartItem.product.basket_buddy_id ==
-                      matchingProduct.basket_buddy_id
+                      cartItem.product?.basket_buddy_id ==
+                      matchingProduct?.basket_buddy_id
                   );
 
                   return (
@@ -477,24 +500,9 @@ const PriceMatching = React.forwardRef((props, ref) => {
                 >
                   {premium === true
                     ? // ? `$${lowestSubtotal.toFixed(2)}`
-                      `$${lowestPrices.toFixed(2)}`
-                    : // `$${lowestProducts
-                      //   ?.map((product) => {
-                      //     const item = cart?.find(
-                      //       (cartItem) =>
-                      //         cartItem.product.basket_buddy_id ==
-                      //         product.basket_buddy_id
-                      //     );
-
-                      //     return (
-                      //       parseFloat(
-                      //         product.individual_price.replace("$", "").trim()
-                      //       ) * item.quantity
-                      //     );
-                      //   })
-                      //   ?.reduce((a, b) => a + b, 0)
-                      //   ?.toFixed(2)}`
-                      `$${subtotal}`}
+                      // `$${lowestPrices.toFixed(2)}`
+                      `$${lowestPriceHandler()?.toFixed(2)}`
+                    : `$${subtotal}`}
                 </Text>
               </View>
             </View>

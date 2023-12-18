@@ -151,7 +151,7 @@ export default function ProductDisplay({
                 {convertPriceToNumber(
                   lowestPrice.individual_price,
                   matchingCartItem.quantity
-                )}
+                ).toFixed(2)}
               </Text>
             ) : null}
           </View>

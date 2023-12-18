@@ -58,8 +58,6 @@ const WelcomeModal = ({
       return acc;
     }, {});
 
-    console.log("productPrices", productPrices);
-
     const lowestPricedProducts = Object.values(groupedProducts);
 
     setLowestPriceProducts(lowestPricedProducts);

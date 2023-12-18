@@ -12,6 +12,7 @@ import ViewPrices from "../components/ViewPrices";
 import CartDisplay from "../components/cartDisplay";
 import SelectDropdown from "react-native-select-dropdown";
 import WelcomeModal from "../components/WelcomeModal";
+import UserContext from "../lib/userContext";
 
 const RenderStores = ({
   stores,
@@ -32,6 +33,7 @@ const RenderStores = ({
   const snapPoints = ["70%"];
   const { cart } = useContext(CartContext);
   const { premium } = useContext(PremiumContext);
+  const { setHighestStore } = useContext(UserContext);
   const [sortOption, setSortOption] = useState("Cheapest");
   const [highestSubtotal, setHighestSubtotal] = useState(0);
   const { setShowHeader } = useContext(MainHeaderContext);
@@ -212,79 +214,9 @@ const RenderStores = ({
     // console.log(lowestPricedItems);
   }, [lowestPricedItems]);
 
-  // useEffect(() => {
-  //   const lowestPricePerItem = [];
-  //   let selectedGroceries = [];
-
-  //   filteredAndSortedStores?.map((store, index) => {
-  //     const subtotal = subtotals[index];
-  //     const foundBrand = brands?.find((brand) => brand.id === store.brand_id);
-  //     // console.log("foundBrand", store);
-
-  //     selectedGroceries = [
-  //       ...selectedGroceries,
-  //       {
-  //         store,
-  //         foundBrand,
-  //         subtotal,
-  //         productsInStore: calculateTotalPriceForStore(store.id)
-  //           ?.productsInStore,
-  //       },
-  //     ];
-  //   });
-
-  //   // Iterate over each item in the cart
-  //   for (const cartItem of cart) {
-  //     selectedGroceries?.map((grocery) => {
-  //       // Ensure the selected grocery store and its products are available
-  //       if (grocery && grocery?.productsInStore) {
-  //         const productsInStore = grocery?.productsInStore;
-
-  //         // Check if the product exists in the selected store
-  //         const productInStore = productsInStore?.find(
-  //           (product) =>
-  //             product.basket_buddy_id === cartItem.product.basket_buddy_id
-  //         );
-
-  //         // If the product doesn't exist in the store, skip the rest of the loop
-  //         if (productInStore) {
-  //           // Find all products in props.foundProducts that match the cart item's name
-  //           const matchingProducts = foundProducts.filter(
-  //             (product) =>
-  //               product.basket_buddy_id === cartItem.product.basket_buddy_id
-  //           );
-
-  //           // Find the product with the lowest price among the matching products
-  //           let lowestPriceProduct = null;
-  //           let lowestPrice = Infinity;
-  //           for (const product of matchingProducts) {
-  //             const price = parseFloat(
-  //               product.individual_price.replace("$", "")
-  //             );
-  //             if (price < lowestPrice) {
-  //               lowestPrice = price;
-  //               lowestPriceProduct = product;
-  //             }
-  //           }
-  //           // Add the lowest price product to the lowestPricePerItem array
-  //           lowestPricePerItem.push(lowestPriceProduct);
-  //         }
-  //       }
-  //     });
-  //   }
-
-  //   setLowestProducts(lowestPricePerItem);
-  //   const productsByStore = lowestPricePerItem.reduce((acc, product) => {
-  //     if (!acc[product.store_id]) {
-  //       acc[product.store_id] = [];
-  //     }
-  //     acc[product.store_id].push(product);
-  //     return acc;
-  //   }, {});
-  //   console.log("productsByStore", productsByStore);
-  // }, [cart, foundProducts, filteredAndSortedStores]);
-
-  // console.log("lowestProducts", lowestProducts);
+  useEffect(() => {
+    setHighestStore(Math.max(...subtotals));
+  }, [subtotals]);
 
   return (
     <ScrollView>

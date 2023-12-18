@@ -47,6 +47,7 @@ export default function App() {
   const [isSearchFocused, setSearchFocus] = useState(false);
   const [resetPwd, setResetPwd] = useState(false);
   const [highestPrice, setHighestPrice] = useState();
+  const [highestStore, setHighestStore] = useState(0);
   const searchRef = useRef();
 
   const linking = {
@@ -169,6 +170,8 @@ export default function App() {
               setIndex,
               setHighestPrice,
               highestPrice,
+              highestStore,
+              setHighestStore,
             }}
           >
             <PremiumProvider>
