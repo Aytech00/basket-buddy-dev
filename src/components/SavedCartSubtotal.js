@@ -140,7 +140,6 @@ export default function SavedCartSubtotal({ cartId, loading, setLoading }) {
             .single()
             .limit(1);
 
-          console.log("Product");
           // console.log(product);
 
           if (error) {

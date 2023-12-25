@@ -14,7 +14,7 @@ import UserContext from "../../lib/userContext";
 export default function MainHeader() {
   // cart page toggle
   const { showHeader, setShowHeader } = useContext(MainHeaderContext);
-  const { cartPage, setCartPage } = useContext(CartPageContext);
+  const { cartPage, setCartPage } = useContext(UserContext);
   const { search, setSearch, searchRef, setSearchFocus } =
     useContext(UserContext);
 

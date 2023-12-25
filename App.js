@@ -48,6 +48,7 @@ export default function App() {
   const [resetPwd, setResetPwd] = useState(false);
   const [highestPrice, setHighestPrice] = useState();
   const [highestStore, setHighestStore] = useState(0);
+  const [cartPage, setCartPage] = useState(false);
   const searchRef = useRef();
 
   const linking = {
@@ -172,6 +173,8 @@ export default function App() {
               highestPrice,
               highestStore,
               setHighestStore,
+              cartPage,
+              setCartPage,
             }}
           >
             <PremiumProvider>
@@ -268,9 +271,11 @@ export default function App() {
                                     className="absolute bottom-0 z-10 w-full"
                                     value={index}
                                     onChange={(e) => {
+                                      console.log("Hello");
                                       setCurrentPage(e);
                                       setSearch("");
                                       setSearchFocus(false);
+                                      setCartPage(false);
                                       searchRef?.current?.blur();
                                     }}
                                     style={{ elevation: 1 }}

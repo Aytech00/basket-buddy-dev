@@ -10,13 +10,14 @@ import CartPageContext from "../lib/cartPageContext";
 import { SavedCartContext } from "../lib/SavedCartContext";
 import Dollar from "../../assets/images/dollar.png";
 import Glen from "../../assets/images/glenn-happy.png";
+import UserContext from "../lib/userContext";
 export default function DoneShopping({ route }) {
   const animatedValue = useRef(new Animated.Value(0)).current;
   const [cartId, setCartId] = useState(route.params.cartID);
   const [saved, setSaved] = useState();
   const { clearCart } = useContext(CartContext);
   const { setShowHeader } = useContext(MainHeaderContext);
-  const { setCartPage } = useContext(CartPageContext);
+  const { setCartPage } = useContext(UserContext);
   const { clearsavedCart } = useContext(SavedCartContext);
 
   const navigation = useNavigation();

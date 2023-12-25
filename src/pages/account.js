@@ -30,13 +30,12 @@ export default function Account({ route }) {
   const [username, setUsername] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
   const { showHeader, setShowHeader } = useContext(MainHeaderContext);
-  const { cartPage, setCartPage } = useContext(CartPageContext);
   const { avatar } = useContext(AvatarContext);
   const [profiles, setProfiles] = useState();
   const scrollY = useRef(new Animated.Value(0)).current;
   const scrollViewRef = useRef(null);
   const { setPremium, premium, offerings } = useContext(PremiumContext);
-  const { setIndex } = useContext(UserContext);
+  const { setIndex, cartPage, setCartPage } = useContext(UserContext);
   const [activatingPremium, setActivatingPremium] = useState(false);
 
   const { sessionID, session } = route.params.props;

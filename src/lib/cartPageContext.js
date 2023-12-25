@@ -13,9 +13,7 @@ export const CartPageProvider = ({ children }) => {
   }, [cartPage]);
 
   return (
-    <CartPageContext.Provider value={{ cartPage, setCartPage }}>
-      {children}
-    </CartPageContext.Provider>
+    <CartPageContext.Provider value={{}}>{children}</CartPageContext.Provider>
   );
 };
 

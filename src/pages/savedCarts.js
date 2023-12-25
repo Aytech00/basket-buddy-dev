@@ -26,7 +26,7 @@ export default function SavedCartsPage({ navigation }) {
   const [refresh, setRefresh] = useState(false);
   const itemsPerPage = 4; // Set how many items you want per page
   const { showHeader, setShowHeader } = useContext(MainHeaderContext);
-  const { setCartPage } = useContext(CartPageContext);
+  const { setCartPage } = useContext(UserContext);
   const [viewMore, setViewMore] = useState(true);
   const [viewMoreSavedItem, setViewMoreSavedItem] = useState(true);
   const [cartAmount, setCartAmount] = useState(2);

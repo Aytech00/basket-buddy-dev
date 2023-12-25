@@ -31,7 +31,7 @@ export default function NewSavedCart({
   const { showHeader, setShowHeader } = useContext(MainHeaderContext);
   const [checked, setChecked] = useState({});
   const [productPrices, setProductPrices] = useState({});
-  const { setCartPage } = useContext(CartPageContext);
+  const { setCartPage } = useContext(UserContext);
 
   const {
     savedCart,
@@ -129,7 +129,6 @@ export default function NewSavedCart({
     const fetchProducts = (arrayOfIds) => {
       let fetchedProductsArray = [];
       arrayOfIds.map(async (productId) => {
-        console.log("productId");
         // console.log(productId);
         const { data: product, error } = await supabase
           .from("Product")

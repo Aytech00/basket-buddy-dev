@@ -1,9 +1,10 @@
 import { useEffect, useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
 import CartPageContext from "../lib/cartPageContext";
+import UserContext from "../lib/userContext";
 
 export default function useScreenListener(page, home) {
-  const { setCartPage, cartPage } = useContext(CartPageContext);
+  const { setCartPage, cartPage } = useContext(UserContext);
 
   const navigation = useNavigation();
   useEffect(() => {

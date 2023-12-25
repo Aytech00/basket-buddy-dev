@@ -19,8 +19,8 @@ import Text from "../components/ui/Text";
 
 const height =
   Platform.OS === "android"
-    ? Dimensions.get("window").height - 145
-    : Dimensions.get("screen").height - 195;
+    ? Dimensions.get("window").height - 155
+    : Dimensions.get("screen").height - 205;
 
 export default function CartPage() {
   const { cart, clearCart, removeFromCart, modifyCartItemQuantity } =
@@ -29,7 +29,7 @@ export default function CartPage() {
   const { setShowHeader } = useContext(MainHeaderContext);
   const { session, setHighestPrice } = useContext(UserContext);
   const [subtotal, setSubtotal] = useState({ min: 0, max: 0 });
-  const { setCartPage } = useContext(CartPageContext);
+  const { setCartPage } = useContext(UserContext);
 
   function getCartPriceRange(similarProducts, quantity) {
     let minPrice = Infinity; // Initialize to positive infinity
